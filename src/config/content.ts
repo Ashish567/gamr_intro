@@ -36,7 +36,7 @@ export interface NavNode {
 
 export const profile = {
   name: "ASHISH KUMAR SINGH",
-  role: "FULL-STACK ENGINEER | LLMS & GENAI APPLICATIONS",
+  role: "SOFTWARE ENGINEER | LLMS & GENAI APPLICATIONS",
   tagline: "PRESS START TO BEGIN THE ADVENTURE",
   bootText: "LOADING CAREER.SAV ...",
   about:
