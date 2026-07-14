@@ -30,7 +30,7 @@
 }
 
 .section-panel__body {
-  font-family: var(--font-body);
+  font-family: var(--font-readable);
   font-size: 1.25rem;
   line-height: 1.5;
   color: var(--text);
@@ -58,7 +58,7 @@
 
 .education-row {
   margin-bottom: 0.7rem;
-  font-family: var(--font-body);
+  font-family: var(--font-readable);
 }
 
 .education-row__header {
@@ -95,14 +95,14 @@
 }
 
 .experience-card__period {
-  font-family: var(--font-body);
+  font-family: var(--font-readable);
   font-size: 1rem;
   color: var(--text-dim);
   white-space: nowrap;
 }
 
 .experience-card__company {
-  font-family: var(--font-body);
+  font-family: var(--font-readable);
   font-size: 1.15rem;
   color: var(--accent);
   margin-bottom: 0.5rem;
@@ -111,7 +111,7 @@
 .experience-card__highlights {
   margin: 0;
   padding-left: 1.1rem;
-  font-family: var(--font-body);
+  font-family: var(--font-readable);
   font-size: 1.1rem;
   color: var(--text);
   line-height: 1.4;
@@ -156,7 +156,7 @@
 }
 
 .project-card__desc {
-  font-family: var(--font-body);
+  font-family: var(--font-readable);
   font-size: 1.15rem;
   color: var(--text);
   margin-bottom: 0.6rem;
@@ -207,7 +207,7 @@
 
 .section-panel__hint {
   margin-top: 1.3rem;
-  font-family: var(--font-body);
+  font-family: var(--font-readable);
   font-size: 1.05rem;
   color: var(--text-dim);
   text-align: center;

@@ -27,6 +27,13 @@
 
   --font-display: "Press Start 2P", monospace;
   --font-body: "VT323", monospace;
+  /* Used for the actual resume content (About/Skills/Experience/Projects)
+     inside SectionPanel — VT323 is a fun retro voice for ambient game
+     copy, but a stylized display font makes dense paragraphs and job
+     history genuinely hard to read. */
+  --font-readable:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
 
   color-scheme: dark;
   color: var(--text);

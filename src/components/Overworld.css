@@ -18,10 +18,19 @@
   z-index: 5;
 }
 
+.overworld__hud-left {
+  /* The theme/sound toggles are fixed-positioned in the top-right corner,
+     on a different stacking layer with no collision awareness of this
+     HUD — without a width cap the name can run underneath them on narrow
+     screens instead of wrapping. */
+  max-width: min(56%, 230px);
+}
+
 .overworld__title {
   font-size: 0.75rem;
   color: var(--accent);
   text-shadow: 2px 2px 0 var(--shadow-pixel);
+  line-height: 1.5;
 }
 
 .overworld__subtitle {
@@ -123,4 +132,18 @@
   padding: 0.5rem 1rem;
   border: 2px solid var(--accent-3);
   text-align: center;
+}
+
+@media (max-width: 640px) {
+  /* The bottom-anchored position was tuned for the wide desktop layout,
+     where nodes never get near it. In the narrow vertical node stack
+     (see computePositions) the node column now occupies that same
+     bottom band, so the hint moves up into the gap reserved for it
+     between the HUD and the first node instead. */
+  .overworld__hint {
+    top: 4.6rem;
+    bottom: auto;
+    max-width: min(85%, 320px);
+    font-size: 1rem;
+  }
 }

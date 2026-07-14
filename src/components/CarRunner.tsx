@@ -338,7 +338,12 @@ export function CarRunner({ playable }: CarRunnerProps) {
   const playerMatrix = running ? (runFrame === 0 ? heroRunMatrixA : heroRunMatrixB) : heroMatrix;
 
   return (
-    <div className="car-runner" ref={containerRef}>
+    <div
+      className="car-runner"
+      ref={containerRef}
+      style={{ pointerEvents: playable ? "auto" : "none" }}
+      onPointerDown={playable ? jump : undefined}
+    >
       <div className="car-runner__texture" />
       <div
         className="car-runner__grass"
@@ -414,7 +419,7 @@ export function CarRunner({ playable }: CarRunnerProps) {
             </div>
           </div>
           <div className="car-runner__hint">
-            {paused ? "PAUSED · ESC TO RESUME" : "↑/SPACE JUMP · ESC PAUSE"}
+            {paused ? "PAUSED · ESC TO RESUME" : "TAP OR ↑/SPACE TO JUMP"}
           </div>
         </div>
       )}

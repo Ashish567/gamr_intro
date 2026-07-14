@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { animated, useSpring } from "@react-spring/web";
 import { useKeyboard } from "../hooks/useKeyboard";
 import { sfx } from "../audio/beep";
@@ -23,12 +23,40 @@ const NODE_ACCENT: Record<string, string> = {
   contact: "var(--panel-border)",
 };
 
-function computePositions(count: number) {
+// The wide horizontal spread (nodes strung out left-to-right with a
+// sine-wave vertical stagger) only has room to breathe on a desktop-width
+// screen. Percentages that give 70+px of gap at 1280px compress to ~15px
+// on a 375px phone, so badges and labels collide. Below the mobile
+// breakpoint, stack nodes in a single vertical column instead.
+function computePositions(count: number, vertical: boolean) {
   return Array.from({ length: count }, (_, i) => {
+    if (vertical) {
+      // Starts below the HUD + hint bar and ends above the CarRunner
+      // strip at the bottom of the screen (see the matching CSS media
+      // query that repositions .overworld__hint to make room up top).
+      const x = 50;
+      const y = count === 1 ? 50 : 26 + (i * 48) / (count - 1);
+      return { x, y };
+    }
     const x = count === 1 ? 50 : 12 + (i * 76) / (count - 1);
     const y = 50 + Math.sin(i * 1.8 + 0.4) * 24;
     return { x, y };
   });
+}
+
+const MOBILE_BREAKPOINT = 640;
+
+function useIsNarrow() {
+  const [isNarrow, setIsNarrow] = useState(
+    () => window.innerWidth < MOBILE_BREAKPOINT,
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`);
+    const handler = (e: MediaQueryListEvent) => setIsNarrow(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isNarrow;
 }
 
 export function Overworld({
@@ -36,7 +64,11 @@ export function Overworld({
   onExit,
   interactive = true,
 }: OverworldProps) {
-  const positions = useMemo(() => computePositions(navNodes.length), []);
+  const isNarrow = useIsNarrow();
+  const positions = useMemo(
+    () => computePositions(navNodes.length, isNarrow),
+    [isNarrow],
+  );
   const [activeIndex, setActiveIndex] = useState(0);
   const [walking, setWalking] = useState(false);
   const facingRef = useRef<"left" | "right">("right");
@@ -46,6 +78,15 @@ export function Overworld({
     y: positions[0].y,
     config: { tension: 170, friction: 22 },
   }));
+
+  // Re-snap the avatar (no animation) if the layout switches between the
+  // wide horizontal spread and the narrow vertical stack — e.g. resizing
+  // or rotating across the mobile breakpoint — since `positions` itself
+  // changes shape and the old coordinates no longer line up with any node.
+  useEffect(() => {
+    api.set({ x: positions[activeIndex].x, y: positions[activeIndex].y });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [positions]);
 
   const moveTo = (nextIndex: number) => {
     if (nextIndex < 0 || nextIndex >= navNodes.length) return;
@@ -90,7 +131,7 @@ export function Overworld({
   return (
     <div className="overworld">
       <div className="overworld__hud">
-        <div>
+        <div className="overworld__hud-left">
           <div className="overworld__title">{profile.name.toUpperCase()}</div>
           <div className="overworld__subtitle">WORLD MAP</div>
         </div>

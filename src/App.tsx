@@ -7,6 +7,7 @@ import { Overworld } from "./components/Overworld";
 import { SectionPanel } from "./components/SectionPanel";
 import { CarRunner } from "./components/CarRunner";
 import { ThemeToggle } from "./components/ThemeToggle";
+import { SoundToggle } from "./components/SoundToggle";
 import { useTheme } from "./hooks/useTheme";
 import { unlockAudio } from "./audio/beep";
 
@@ -41,6 +42,7 @@ function App() {
       <CRTOverlay />
       <CarRunner playable={scene === "title"} />
       <ThemeToggle theme={theme} onToggle={toggleTheme} />
+      <SoundToggle />
 
       {transitions((style, item) =>
         item === "title" ? (

@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { useSpring, animated, useTrail } from "@react-spring/web";
 import { useKeyboard } from "../hooks/useKeyboard";
-import { sfx, setMuted, isMuted } from "../audio/beep";
+import { sfx } from "../audio/beep";
 import { profile } from "../config/content";
 import "./TitleScreen.css";
 
@@ -12,8 +11,6 @@ interface TitleScreenProps {
 const LINES = [profile.name, profile.role];
 
 export function TitleScreen({ onStart }: TitleScreenProps) {
-  const [muted, setMutedState] = useState(isMuted());
-
   const container = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
@@ -36,19 +33,8 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
     Enter: start,
   });
 
-  const toggleMute = () => {
-    const next = !muted;
-    setMuted(next);
-    setMutedState(next);
-    if (!next) sfx.select();
-  };
-
   return (
     <animated.div className="title-screen" style={container}>
-      <button className="title-screen__mute" onClick={toggleMute}>
-        {muted ? "SOUND: OFF" : "SOUND: ON"}
-      </button>
-
       <div className="title-screen__eyebrow">A SOFTWARE ENGINEER'S SANDS OF TIME</div>
 
       <div>

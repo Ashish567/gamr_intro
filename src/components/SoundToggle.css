@@ -1,0 +1,12 @@
+.sound-toggle {
+  position: fixed;
+  top: 3.6rem;
+  right: 1rem;
+  z-index: 60;
+  background: color-mix(in srgb, var(--ink) 60%, transparent);
+  border: 2px solid var(--accent-3);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  padding: 0.5rem 0.7rem;
+}
