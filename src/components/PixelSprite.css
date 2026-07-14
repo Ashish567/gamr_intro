@@ -1,0 +1,17 @@
+.pixel-sprite {
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.35));
+}
+
+.pixel-sprite--bob {
+  animation: pixel-bob 0.36s steps(2) infinite;
+}
+
+@keyframes pixel-bob {
+  0%,
+  100% {
+    margin-top: 0;
+  }
+  50% {
+    margin-top: -2px;
+  }
+}

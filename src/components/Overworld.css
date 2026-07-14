@@ -1,0 +1,126 @@
+.overworld {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.overworld__hud {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: var(--font-display);
+  z-index: 5;
+}
+
+.overworld__title {
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-shadow: 2px 2px 0 var(--shadow-pixel);
+}
+
+.overworld__subtitle {
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--text-dim);
+}
+
+.overworld__path-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.overworld__node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.overworld__node-badge {
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 999px;
+  border: 3px solid var(--node-accent, var(--panel-border));
+  background: radial-gradient(
+    circle at 35% 30%,
+    var(--panel),
+    var(--ink)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink) 70%, transparent);
+  animation: node-idle-pulse 2.4s ease-in-out infinite;
+}
+
+.overworld__node--active .overworld__node-badge {
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--ink) 60%, transparent),
+    0 0 18px 4px color-mix(in srgb, var(--node-accent) 55%, transparent);
+  animation: none;
+}
+
+@keyframes node-idle-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--ink) 70%, transparent),
+      0 0 4px 0 color-mix(in srgb, var(--node-accent) 25%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--ink) 70%, transparent),
+      0 0 12px 3px color-mix(in srgb, var(--node-accent) 45%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overworld__node-badge {
+    animation: none;
+  }
+}
+
+.overworld__node-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  color: var(--text);
+  background: color-mix(in srgb, var(--ink) 70%, transparent);
+  padding: 0.3rem 0.5rem;
+  white-space: nowrap;
+}
+
+.overworld__avatar {
+  position: absolute;
+  z-index: 4;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+.overworld__hint {
+  position: absolute;
+  bottom: 11rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--accent-3);
+  text-align: center;
+}
